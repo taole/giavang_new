@@ -1,0 +1,6 @@
+<LED>
+    <DateTime>26-05-2014</DateTime>
+    <Row Name='sjc le' Key='sjcle' Sell='3,595' Buy='3,590' />
+    <Row Name='doji hcm le' Key='hcmle' Sell='36,120' Buy='36,070' />
+    <Row Name='vàng 999' Key='vang999' Sell='4,220' Buy='4,210' />
+</LED>

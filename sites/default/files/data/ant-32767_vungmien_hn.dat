@@ -1,0 +1,14 @@
+<table class="goldprice-view sticky-enabled" width="100%">
+ <thead><tr><th class="first"><div>Loại</div></th><th><div>Mua vào</div></th><th class="last"><div>Bán ra</div></th> </tr></thead>
+<tbody>
+ <tr class="odd"><td class="label first">DOJI HN buôn</td><td class="goldprice-td goldprice-td-0 group_sj3"><span class="">35910</span></td><td class="goldprice-td goldprice-td-1 group_sj3 last"><span class="">35940</span></td> </tr>
+ <tr class="even"><td class="label first">Gold (usd/oz)</td><td class="goldprice-td goldprice-td-0 group_gold"><span class="">1338.15</span></td><td class="goldprice-td goldprice-td-1 group_gold last"><span class="">1338.75</span></td> </tr>
+ <tr class="odd"><td class="label first">Nhẫn phúc (10 chỉ)</td><td class="goldprice-td goldprice-td-0 group_nhan_1"><span class="">35900</span></td><td class="goldprice-td goldprice-td-1 group_nhan_1 last"><span class="">35950</span></td> </tr>
+ <tr class="even"><td class="label first">Nhẫn lộc (1 chỉ)</td><td class="goldprice-td goldprice-td-0 group_nhan_loc1"><span class="">3590</span></td><td class="goldprice-td goldprice-td-1 group_nhan_loc1 last"><span class="">3595</span></td> </tr>
+ <tr class="odd"><td class="label first">Nhẫn phát (2 chỉ)</td><td class="goldprice-td goldprice-td-0 group_nhan_phat2"><span class="">7180</span></td><td class="goldprice-td goldprice-td-1 group_nhan_phat2 last"><span class="">7190</span></td> </tr>
+ <tr class="even"><td class="label first">Nhẫn tài (5 chỉ)</td><td class="goldprice-td goldprice-td-0 group_nhan_tai5"><span class="">17950</span></td><td class="goldprice-td goldprice-td-1 group_nhan_tai5 last"><span class="">17975</span></td> </tr>
+ <tr class="odd"><td class="label first">Nữ trang 99.99</td><td class="goldprice-td goldprice-td-0 group_vang_24k"><span class="">3380</span></td><td class="goldprice-td goldprice-td-1 group_vang_24k last"><span class="">3460</span></td> </tr>
+ <tr class="even"><td class="label first">Nữ trang 99.9</td><td class="goldprice-td goldprice-td-0 group_nu_3"><span class="">3375</span></td><td class="goldprice-td goldprice-td-1 group_nu_3 last"><span class="">3456</span></td> </tr>
+ <tr class="odd"><td class="label first">Nữ trang 58.3</td><td class="goldprice-td goldprice-td-0 group_vang_14k"><span class="">1893</span></td><td class="goldprice-td goldprice-td-1 group_vang_14k last"><span class="">2033</span></td> </tr>
+</tbody>
+</table>
