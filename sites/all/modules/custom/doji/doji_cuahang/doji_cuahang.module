@@ -16,9 +16,10 @@ function doji_cuahang_menu() {
     'type' => MENU_LOCAL_TASK,
   );
 
-  $items['system/doji/cuahang_1'] = array(
+  $items['system/doji/%/%/%/%'] = array(
     'title' => t('Quản lý cua hang', array(), 'vi'),
     'page callback' => 'doji_api_cuahang_page',
+    'page arguments' => array(6,2,3,4,5),
     'access arguments' => array('access administration pages'),
     'weight' => 10,
     'type' => MENU_LOCAL_TASK,
@@ -41,36 +42,39 @@ function doji_cuahang_admin() {
   	$form = '<div class="clear-form goldprice-sxht">' . $form . '</div>';
   	return $form;
 }
-function doji_api_cuahang_page($op) {
+function doji_api_cuahang_page($op,$Filename,$numb_group,$num_label,$num_key) {
   global $user;
   if (!in_array($op, array('new'))) {
     unset($op);
   }
-
   drupal_set_header('Content-Type: text/xml');
-  $output = doji_api_cuahang($op);
+  $output = doji_api_cuahang($op,$Filename,$numb_group,$num_label,$num_key);
+
   $output .= "<Source>DOJI GOLD : http://giavang.doji.vn</Source>\n";
   $output = "<?xml version='1.0' encoding='utf-8'?>\n<GoldList>$output</GoldList>";
   echo $output;
 }
 
-function doji_api_cuahang($op) {
+function doji_api_cuahang($op,$Filename,$numb_group,$num_label,$num_key) {
   global $user;
   $rows = array();
 
   $data_path_details = doji_get_data_path_details();
-  $data_path_details['filepath'] = $data_path_details['path'] . '/'  . $data_path_details['prefix'] .  'api_cuahang.dat';
+  $data_path_details['filepath'] = $data_path_details['path'] . '/'  . $data_path_details['prefix'] .  'api_'.$Filename.'.dat';
   $output = file_get_contents($data_path_details['filepath']);
 
   if (empty($output) || !$output || $op == 'new') {
+
     $node = doji_get_node('last');
     $node1 = doji_get_node('first', 'cuahang');
     $content_groups = fieldgroup_groups('goldprice');
     $datime = '    <DateTime>' . format_date($node->created, 'custom', 'd-m-Y') . '</DateTime>';
+    $group = 'field_dlieu_ch_'.$numb_group;
 
-    foreach ($node1->field_dlieu_ch_1 as $k => $v) {
 
-      $fieldname = str_replace('group_', 'field_', $node1->field_dlieu_ch_1[$k]['value']);
+    foreach ($node1->$group as $k => $v) {
+      $dlieu = $node1 -> $group;
+      $fieldname = str_replace('group_', 'field_', $dlieu[$k]['value']);
       $muavao = format_number(str_replace(',', '', $node->{$fieldname . '_muavao'}[0]['value']));
       $banra = format_number(str_replace(',', '', $node->{$fieldname . '_banra'}[0]['value']));
 
@@ -80,7 +84,7 @@ function doji_api_cuahang($op) {
       if ($banra <= 0) {
         $banra = '-';
       }
-
+      $label_show = 'field_label_ch_'.$num_label;
       if ($node1->field_label_ch_1[$k]['value'] && !empty($node1->field_label_ch_1[$k]['value'])) {
         $label = $node1->field_label_ch_1[$k]['value'];
       }
@@ -89,57 +93,17 @@ function doji_api_cuahang($op) {
         $label = preg_replace('|(.*?)\(.*|i', '$1', $label);
       }
 
-      $key = $node1->field_key_ch_1[$k]['value'];
+      $value_key = 'field_key_ch_'.$num_key;
+      $key = $node1->field_label_ch_1[$k]['value'];
       $rows[] = "    <Row Name='$label' Key='$key' Sell='$banra' Buy='$muavao' />\n";
 
     }
-
     if (count($rows)) {
       $output = "<LED>\n$datime\n" . implode("", $rows) . "</LED>\n";
       file_save_data($output, $data_path_details['filepath'], FILE_EXISTS_REPLACE);
     }
   }
-
   return $output;
-}
-
-
-
-
-function  doji_cuahang_content_page_callback($term =1){
-  if(arg(2) == 'callback'){
-    $term = $_GET['tid'];
-  }
-  $query = db_query("
-    SELECT a.field_diadiem_phone_value, b.field_diadiem_diachi_value, c.field_diadiem_ten_value,
-    d.field_diadiem_lat_value, e.field_diadiem_long_value
-    FROM content_field_diadiem_phone a,content_field_diadiem_diachi b,content_field_diadiem_ten c,
-    content_field_diadiem_lat d, content_field_diadiem_long e
-    WHERE a.delta = b.delta and b.delta = c.delta and c.delta and c.delta = d.delta and d.delta = e.delta
-    and e.delta in
-    (SELECT delta from content_field_diadiem_city where field_diadiem_city_value ='%d' )",$term
-  );
-  $address = array();
-  while($result = db_fetch_array($query)) {
-    array_push($address,$result);
-  }
-  drupal_set_title('');
-  drupal_add_js(drupal_get_path('module', 'doji_cuahang') . '/js/doji_cuahang.js');
-  $output = theme('cuahang', $address);
-  if(arg(2) == 'callback') {
-  drupal_json(array('status' => TRUE, 'data' => $output));
-  exit();
-  }
-  else
-    return $output;
-}
-
-function doji_cuahang_content_page() {
-	drupal_set_title('');	
-	drupal_add_js(drupal_get_path('module', 'cuahang') . '/js/doji_cuahang.js');
-  	$content = doji_get_node('first', 'cuahang');
-	$output = theme('cuahang', $content);
-	return $output;
 }
 
 /**
